@@ -5,8 +5,7 @@ This react app combined with Openweathermap.org api and countryflagsapi.com api 
 Also the weather api support multiple language input (english, hebrew, arabic etc..) and bookmarks to save your favorits places (localStorage usage) **(up to 5 places)**
 
 
-![](https://i.imgur.com/wyXd885.png)
-![](https://i.imgur.con/a/Ahp1XDS)
+![](https://i.imgur.com/D1JoqXF.png)
 
 ## Getting Started with Create React App
 
