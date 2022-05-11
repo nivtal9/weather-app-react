@@ -1,9 +1,7 @@
 
 # Weather App 🌤
 
-This React App combined with Openweathermap.org API and countryflagsapi.com API (axios usage) 
-
-for excellence and detailed weather and current time.
+This React App combined with Openweathermap.org API and countryflagsapi.com API (axios usage) for excellence and detailed weather and current time.
 
 The weather API support multiple language input (english, hebrew, arabic etc..).
 
