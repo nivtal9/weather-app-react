@@ -4,9 +4,7 @@
 This react app combined with Openweathermap.org api and countryflagsapi.com api (axios usage) for excelence and detailed weather and current time.
 Also the weather api support multiple language input (english, hebrew, arabic etc..) and bookmarks to save your favorits places (localStorage usage) **(up to 5 places)**
 
-
-![](https://imgur.com/a/Ahp1XDS)
-
+![](https://i.imgur.con/a/Ahp1XDS)
 
 # Getting Started with Create React App
 
