@@ -12,17 +12,26 @@ function App() {
   const [location, setLocation] = useState('');
   const [flagURL, setFlagURL] = useState('');
   const [currTime, setCurrTime] = useState('');
-  var [background, setBackground] = useState(defaultPic);
+  const [favListShow, setFavListShow] = useState(false);
+  const [list, setList] = useState([]);
+  const [item, setItem] = useState("");
+  const [background, setBackground] = useState(defaultPic);
 // TODO - borders to text so it can be seen and cancel transpernt background in search box and favorits button
 
   const weatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=0eb35f3c632280096f5115f275d4b469`;
   const flagAPI=`https://countryflagsapi.com/svg/`;
 
   const favButton = () =>{
-    console.log('added');
+    if(!list.includes(item)&&item!==''&&list.length<=5){
+      let tempArr = list;
+      tempArr.push(item);
+      setList(tempArr);
+      localStorage.setItem("favorits", JSON.stringify(list));
+    }
   }
-  const favList = () =>{
-    console.log('Listed');
+  const bookmark = () =>{
+    setFavListShow(!favListShow);
+    setList(JSON.parse(localStorage.getItem("favorits")));
   }
 
   const searchLocation = (event) => {
@@ -36,8 +45,8 @@ function App() {
         var date = new Date(currTime*1000);
         var timeString = date.toISOString();
         setCurrTime(timeString.substring(11,16));
+
         var hours=timeString.substring(11,13);
-        console.log(hours);
         if(5<hours && hours<12){
           console.log("morning");
           setBackground(morning);
@@ -60,12 +69,17 @@ function App() {
       <div className="search">
           <input
             value={location}
-            onChange={event => setLocation(event.target.value)}
+            onChange={event => {setLocation(event.target.value); setItem(event.target.value)}}
+            // setItem(event.target.value)
             onKeyPress={searchLocation}
             placeholder='Enter Location'
             type="text" />
-          <button onClick={favButton} className='addFav'><FontAwesomeIcon icon={faStar}/></button> 
-          <button onClick={favList} className='favList'><FontAwesomeIcon icon={faBookmark}/></button>
+          <button onClick={favButton} className='addFav'><FontAwesomeIcon icon={faStar}/><div className='tooltip'>Add to Bookmarks</div></button>
+          <div>
+            <button onClick={bookmark} className='bookmark'><FontAwesomeIcon icon={faBookmark}/><div className='tooltip'>Bookmarks (max 5)</div></button>
+            <div className="favList">{favListShow?<ul> {list.length > 0 && list.map((item) => <li> {item} </li>)} </ul> :null }
+            </div>
+          </div>
       </div>
       <div className="container">
         <div className="top">

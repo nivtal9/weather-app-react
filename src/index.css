@@ -32,7 +32,7 @@ h1 {
   background-repeat: no-repeat;
   background-size: cover;
   position: absolute;
-  
+
 }
 
 .app:before {
@@ -50,6 +50,7 @@ h1 {
   justify-content: space-between;
   text-align: center;
   padding: 1rem;
+  max-height: 85px;
 }
 
 .app input {
@@ -111,20 +112,56 @@ h1 {
   justify-content: space-between;
 }
 
-.addFav, .favList{
+.addFav, .bookmark{
   padding: 10px;
   border: none;
   color: wheat;
   background: none;
   font-size: 30px;
+  position: relative;
+  right: 30px;
 }
 
-.addFav:hover, .favList:hover{
+.addFav:hover, .bookmark:hover{
   color: goldenrod;
   cursor: pointer;
+
 }
-.addFav:active, .favList:active{
+.addFav:active, .bookmark:active{
   color: rgba(218, 165, 32, 0.505);
   cursor: pointer;
 }
 
+.addFav .tooltip{
+  position: absolute;
+  color: white;
+  background-color: grey;
+  padding: 6px;
+  border-radius: 3px;
+  font-size: 14px;
+  right: 55px;
+  top: 10px;
+  opacity: 0;
+}
+
+.bookmark .tooltip{
+  position: absolute;
+  color: white;
+  background-color: grey;
+  padding: 6px;
+  border-radius: 3px;
+  font-size: 14px;
+  right: 50px;
+  top: 7px;
+  opacity: 0;
+}
+
+.addFav:hover .tooltip, .bookmark:hover .tooltip{
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.favList{
+  position: absolute;
+  right: 20px
+}
