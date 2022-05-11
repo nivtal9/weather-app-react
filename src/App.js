@@ -1,16 +1,29 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import midDay from "./assets/mid-day.jpg"
+import morning from "./assets/morning.jpg"
+import night from "./assets/night.jpg"
+import defaultPic from "./assets/default.jpg"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar, faBookmark } from '@fortawesome/free-regular-svg-icons'
 
 function App() {
   const [data, setData] = useState({});
   const [location, setLocation] = useState('');
   const [flagURL, setFlagURL] = useState('');
   const [currTime, setCurrTime] = useState('');
-  var [background, setBackground] = useState('');
-
+  var [background, setBackground] = useState(defaultPic);
+// TODO - borders to text so it can be seen and cancel transpernt background in search box and favorits button
 
   const weatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=0eb35f3c632280096f5115f275d4b469`;
   const flagAPI=`https://countryflagsapi.com/svg/`;
+
+  const favButton = () =>{
+    console.log('added');
+  }
+  const favList = () =>{
+    console.log('Listed');
+  }
 
   const searchLocation = (event) => {
     if (event.key === 'Enter') {
@@ -27,15 +40,15 @@ function App() {
         console.log(hours);
         if(5<hours && hours<12){
           console.log("morning");
-          setBackground("url(./assets/morning.jpg)");
+          setBackground(morning);
         }
         else if(11<hours && hours<18){
           console.log("mid-day");
-          setBackground("url(./assets/mid-day.jpg)");
+          setBackground(midDay);
         }
         else if((17<hours && hours<23) || (-1<hours && hours<6)){
           console.log("night");
-          setBackground("url(./assets/night.jpg)");
+          setBackground(night);
         }
       })
       setLocation('');
@@ -45,13 +58,14 @@ function App() {
   return (
     <div className="app" style={{backgroundImage: `url(${background})`}}>
       <div className="search">
-        <input
-          value={location}
-          onChange={event => setLocation(event.target.value)}
-          onKeyPress={searchLocation}
-          placeholder='Enter Location'
-          type="text" />
-          <button>favorits</button>
+          <input
+            value={location}
+            onChange={event => setLocation(event.target.value)}
+            onKeyPress={searchLocation}
+            placeholder='Enter Location'
+            type="text" />
+          <button onClick={favButton} className='addFav'><FontAwesomeIcon icon={faStar}/></button> 
+          <button onClick={favList} className='favList'><FontAwesomeIcon icon={faBookmark}/></button>
       </div>
       <div className="container">
         <div className="top">
@@ -66,7 +80,6 @@ function App() {
             {data.weather ? <p>{data.weather[0].main}</p> : null}
           </div>
         </div>
-
         {data.name !== undefined &&
           <div className="bottom">
             <div className="feels">

@@ -28,17 +28,15 @@ h1 {
   position: relative;
   background-color: rgba(0,0,0,0.4);
   color: #fff; 
-
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
   
 }
 
 .app:before {
   content: '';
-  background-image: url('./assets/default.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
@@ -64,7 +62,7 @@ h1 {
 }
 
 ::placeholder {
-  color: #f8f8f8;
+  color: wheat;
 }
 
 .container {
@@ -112,3 +110,21 @@ h1 {
   flex-direction: row;
   justify-content: space-between;
 }
+
+.addFav, .favList{
+  padding: 10px;
+  border: none;
+  color: wheat;
+  background: none;
+  font-size: 30px;
+}
+
+.addFav:hover, .favList:hover{
+  color: goldenrod;
+  cursor: pointer;
+}
+.addFav:active, .favList:active{
+  color: rgba(218, 165, 32, 0.505);
+  cursor: pointer;
+}
+
