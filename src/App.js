@@ -41,7 +41,7 @@ function App() {
     list.splice(delItem,1);
     setList(tempArr);
     localStorage.setItem("favorits", JSON.stringify(list));
-    setFavListShow(false);
+    setList(JSON.parse(localStorage.getItem("favorits")));
   }
 
   const searchLocation = (event) => {
@@ -55,14 +55,16 @@ function App() {
         var date = new Date(currTime*1000);
         var timeString = date.toISOString();
         setCurrTime(timeString.substring(11,16));
+
         var hours=timeString.substring(11,13);
+
         if(5<hours && hours<12){
           setBackground(morning);
         }
         else if(11<hours && hours<18){
           setBackground(midDay);
         }
-        else if((17<hours && hours<23) || (-1<hours && hours<6)){
+        else if((17<hours && hours<24) || (-1<hours && hours<6)){
           setBackground(night);
         }
       })
