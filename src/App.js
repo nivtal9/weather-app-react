@@ -32,8 +32,10 @@ function App() {
   }
 
   const bookmark = () =>{
-    setFavListShow(!favListShow);
-    setList(JSON.parse(localStorage.getItem("favorits")));
+    if(localStorage.getItem("favorits")!==null){
+      setFavListShow(!favListShow);
+      setList(JSON.parse(localStorage.getItem("favorits")));
+    }
   }
 
   const delLoc = (delItem) => {
