@@ -16,10 +16,12 @@ body {
 
 p {
   font-size: 2.4rem;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 h1 {
   font-size: 6rem;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
 
 .app {
@@ -129,7 +131,6 @@ h1 {
 }
 .addFav:active, .bookmark:active{
   color: rgba(218, 165, 32, 0.505);
-  cursor: pointer;
 }
 
 .addFav .tooltip{
@@ -163,5 +164,31 @@ h1 {
 
 .favList{
   position: absolute;
-  right: 20px
+  right: 20px;
+  font-size: 15px;
+  top: 60px;
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.delLoc{
+  padding: 10px;
+  border: none;
+  color: red;
+  background: none;
+}
+
+.enterLoc{
+  padding: 10px;
+  border: none;
+  color: greenyellow;
+  background: none;
+}
+
+.delLoc:hover, .enterLoc:hover{
+  cursor: pointer;
+  filter: brightness(75%);
+}
+
+.delLoc:active, .enterLoc:active{
+  filter: brightness(50%);
 }

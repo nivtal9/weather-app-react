@@ -5,7 +5,7 @@ import morning from "./assets/morning.jpg"
 import night from "./assets/night.jpg"
 import defaultPic from "./assets/default.jpg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faBookmark } from '@fortawesome/free-regular-svg-icons'
+import { faStar, faBookmark, faXmarkCircle , faArrowAltCircleUp} from '@fortawesome/free-regular-svg-icons'
 
 function App() {
   const [data, setData] = useState({});
@@ -22,20 +22,30 @@ function App() {
   const flagAPI=`https://countryflagsapi.com/svg/`;
 
   const favButton = () =>{
-    if(!list.includes(item)&&item!==''&&list.length<=5){
+    if(!list.includes(item)&&item!==''&&list.length<5){
       let tempArr = list;
       tempArr.push(item);
       setList(tempArr);
       localStorage.setItem("favorits", JSON.stringify(list));
     }
+    setFavListShow(false);
   }
+
   const bookmark = () =>{
     setFavListShow(!favListShow);
     setList(JSON.parse(localStorage.getItem("favorits")));
   }
 
+  const delLoc = (delItem) => {
+    var tempArr = list;
+    list.splice(delItem,1);
+    setList(tempArr);
+    localStorage.setItem("favorits", JSON.stringify(list));
+    setFavListShow(false);
+  }
+
   const searchLocation = (event) => {
-    if (event.key === 'Enter') {
+    if (event.type === 'click' || event.key === 'Enter') {
       axios.get(weatherAPI).then((response) => {
         setData(response.data);
         setFlagURL(flagAPI + response.data.sys.country);
@@ -45,18 +55,14 @@ function App() {
         var date = new Date(currTime*1000);
         var timeString = date.toISOString();
         setCurrTime(timeString.substring(11,16));
-
         var hours=timeString.substring(11,13);
         if(5<hours && hours<12){
-          console.log("morning");
           setBackground(morning);
         }
         else if(11<hours && hours<18){
-          console.log("mid-day");
           setBackground(midDay);
         }
         else if((17<hours && hours<23) || (-1<hours && hours<6)){
-          console.log("night");
           setBackground(night);
         }
       })
@@ -70,14 +76,20 @@ function App() {
           <input
             value={location}
             onChange={event => {setLocation(event.target.value); setItem(event.target.value)}}
-            // setItem(event.target.value)
             onKeyPress={searchLocation}
             placeholder='Enter Location'
             type="text" />
           <button onClick={favButton} className='addFav'><FontAwesomeIcon icon={faStar}/><div className='tooltip'>Add to Bookmarks</div></button>
           <div>
             <button onClick={bookmark} className='bookmark'><FontAwesomeIcon icon={faBookmark}/><div className='tooltip'>Bookmarks (max 5)</div></button>
-            <div className="favList">{favListShow?<ul> {list.length > 0 && list.map((item) => <li> {item} </li>)} </ul> :null }
+            <div className="favList">{favListShow?<ul style={{listStyleType:'none'}}> 
+               {list.length > 0 && list.map((item, curr) => 
+               <li key={curr}>
+                 <button onClick={() => delLoc(curr)} className='delLoc'><FontAwesomeIcon icon={faXmarkCircle}/></button>
+                 <button onClick={event => searchLocation(event)} onMouseLeave={() => setLocation('')} onMouseEnter={() => setLocation(item)} className='enterLoc'><FontAwesomeIcon icon={faArrowAltCircleUp}/></button>
+                  {item} 
+                </li>)} 
+               </ul> :null }
             </div>
           </div>
       </div>
